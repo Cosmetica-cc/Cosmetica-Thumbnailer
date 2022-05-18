@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "capture-website": "^2.4.0",
+    "chrome-render": "^1.4.1",
+    "express": "^4.18.1",
+    "path": "^0.12.7",
+    "request": "^2.88.2"
+  },
+  "type": "module"
+}
