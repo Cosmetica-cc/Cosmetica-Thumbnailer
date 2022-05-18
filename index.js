@@ -164,6 +164,13 @@ app.listen(config.port, function() {
 });
 privateServer.listen(config.internalPort);
 
+const puppeteerArgs = {
+	args: [
+		'--no-sandbox',
+		'--disable-setuid-sandbox'
+	]
+};
+
 async function screenshot(subject, id, imageType, fileType) {
 	var properties = imageTypes[subject][imageType];
 	var options = {
@@ -171,7 +178,8 @@ async function screenshot(subject, id, imageType, fileType) {
 		width: properties.width,
 		height: properties.height,
 		type: properties.imageType,
-		scaleFactor: 1
+		scaleFactor: 1,
+		launchOptions: puppeteerArgs
 	};
 	if (options.type == "jpeg") options.quality = properties.quality;
 	try {
