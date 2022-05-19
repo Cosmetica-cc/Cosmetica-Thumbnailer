@@ -22,7 +22,7 @@ const imageTypes = {
 			imageType: "jpeg",
 			width: 1200,
 			height: 630,
-			quality: 0.7
+			quality: 0.8
 		}
 	}
 };
@@ -162,7 +162,9 @@ app.get('/', function (req, res) {
 app.listen(config.port, function() {
 	console.log("Started server on port " + config.port);
 });
-privateServer.listen(config.internalPort);
+privateServer.listen(config.internalPort, function() {
+	console.log("Started internal server on port " + config.internalPort);
+});
 
 const puppeteerArgs = {
 	args: [

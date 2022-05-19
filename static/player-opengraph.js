@@ -54,7 +54,7 @@ async function doRender() {
 		screenshotter.loadSkin((data.skin != "" ? data.skin : "default.png"), data.slim ? "slim" : "default")
 	]);
 	await Promise.all([
-		screenshotter.loadPanorama("https://cosmetica.cc/page/panoramas/get?id=" + data.panorama)
+		screenshotter.loadPanorama("https://cosmetica.cc/page/panoramas/get?trash&id=" + data.panorama)
 	]);
 	if (hatTexture) await Promise.all([
 		screenshotter.loadHat(hatTexture)
