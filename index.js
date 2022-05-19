@@ -28,6 +28,11 @@ const imageTypes = {
 			imageType: "png",
 			width: 800,
 			height: 1400
+		},
+		isometricSmall: {
+			imageType: "png",
+			width: 200,
+			height: 350
 		}
 	}
 };
@@ -199,7 +204,6 @@ async function screenshot(subject, id, imageType, fileType) {
 			await captureWebsite.file("http://127.0.0.1:" + config.internalPort + "/" + subject + "/" + imageType + "/" + id, fileName, options);
 			return true;
 		} else {
-			console.log(options);
 			var shot = await captureWebsite.buffer("http://127.0.0.1:" + config.internalPort + "/" + subject + "/" + imageType + "/" + id, options);
 			return shot;
 		}
