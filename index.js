@@ -23,6 +23,11 @@ const imageTypes = {
 			width: 1200,
 			height: 630,
 			quality: 0.8
+		},
+		isometric: {
+			imageType: "png",
+			width: 800,
+			height: 1400
 		}
 	}
 };
@@ -181,7 +186,8 @@ async function screenshot(subject, id, imageType, fileType) {
 		height: properties.height,
 		type: properties.imageType,
 		scaleFactor: 1,
-		launchOptions: puppeteerArgs
+		launchOptions: puppeteerArgs,
+		defaultBackground: false
 	};
 	if (options.type == "jpeg") options.quality = properties.quality;
 	try {
@@ -193,6 +199,7 @@ async function screenshot(subject, id, imageType, fileType) {
 			await captureWebsite.file("http://127.0.0.1:" + config.internalPort + "/" + subject + "/" + imageType + "/" + id, fileName, options);
 			return true;
 		} else {
+			console.log(options);
 			var shot = await captureWebsite.buffer("http://127.0.0.1:" + config.internalPort + "/" + subject + "/" + imageType + "/" + id, options);
 			return shot;
 		}
