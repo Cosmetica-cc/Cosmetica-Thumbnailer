@@ -28,3 +28,9 @@ body {
 #watermark * {
 	vertical-align: middle;
 }
+
+#canvas, #canvas2 {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}

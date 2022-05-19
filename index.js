@@ -6,6 +6,7 @@ import path from "path";
 import {createRequire} from "module";
 const require = createRequire(import.meta.url);
 const config = require("./config.json");
+const imageTypes = require("./image-types.json");
 const privateServer = express();
 
 function dir() {
@@ -15,27 +16,6 @@ function dir() {
 const template = fs.readFileSync(dir() + "/template.html", "utf8");
 
 var uuidCache = new Object;
-
-const imageTypes = {
-	player: {
-		opengraph: {
-			imageType: "jpeg",
-			width: 1200,
-			height: 630,
-			quality: 0.8
-		},
-		isometric: {
-			imageType: "png",
-			width: 800,
-			height: 1400
-		},
-		isometricSmall: {
-			imageType: "png",
-			width: 200,
-			height: 350
-		}
-	}
-};
 
 const imageEndings = ["png", "jpg", "jpeg"]
 

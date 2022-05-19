@@ -1,5 +1,5 @@
-function initializeViewer(options, zoom = false) {
-	var skinViewer = new skinview3d.FXAASkinViewer(options);
+function initializeViewer(options, transparent = false) {
+	var skinViewer = transparent ? new skinview3d.SkinViewer(options) : new skinview3d.FXAASkinViewer(options);
 	skinViewer.width = options.width;
 	skinViewer.height = options.height;
 	return skinViewer;

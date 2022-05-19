@@ -1,0 +1,44 @@
+{
+	"player": {
+		"opengraph": {
+			"imageType": "jpeg",
+			"width": 1200,
+			"height": 630,
+			"quality": 0.8
+		},
+		"isometric": {
+			"imageType": "png",
+			"width": 800,
+			"height": 1400
+		},
+		"isometricsmall": {
+			"imageType": "png",
+			"width": 200,
+			"height": 350
+		}
+	},
+	"cape": {
+		"opengraph": {
+			"imageType": "jpeg",
+			"width": 1200,
+			"height": 630,
+			"quality": 0.8
+		}
+	},
+	"hat": {
+		"opengraph": {
+			"imageType": "jpeg",
+			"width": 1200,
+			"height": 630,
+			"quality": 0.8
+		}
+	},
+	"shoulderbuddy": {
+		"opengraph": {
+			"imageType": "jpeg",
+			"width": 1200,
+			"height": 630,
+			"quality": 0.8
+		}
+	}
+}
