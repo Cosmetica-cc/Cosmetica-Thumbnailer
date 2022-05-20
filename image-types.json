@@ -23,6 +23,11 @@
 			"width": 1200,
 			"height": 630,
 			"quality": 0.8
+		},
+		"icon": {
+			"imageType": "png",
+			"width": 300,
+			"height": 300
 		}
 	},
 	"hat": {
@@ -31,6 +36,11 @@
 			"width": 1200,
 			"height": 630,
 			"quality": 0.8
+		},
+		"icon": {
+			"imageType": "png",
+			"width": 300,
+			"height": 300
 		}
 	},
 	"shoulderbuddy": {
@@ -39,6 +49,11 @@
 			"width": 1200,
 			"height": 630,
 			"quality": 0.8
+		},
+		"icon": {
+			"imageType": "png",
+			"width": 300,
+			"height": 300
 		}
 	}
 }
