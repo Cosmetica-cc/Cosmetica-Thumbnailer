@@ -40,7 +40,7 @@ async function doRender() {
 	var screenshotter;
 	var screenshotter2;
 	if (data.type == "Hat") {
-		options.fov = 60;
+		options.fov = 45;
 		screenshotter = initializeViewer(options, true);
 		screenshotter.camera.rotation.x = 0;
 		screenshotter.camera.rotation.y = 0.534;
@@ -81,9 +81,6 @@ async function doRender() {
 	}
 	if (hatTexture) await Promise.all([
 		screenshotter.loadShoulderBuddy(hatTexture)
-	]);
-	await Promise.all([
-		screenshotter.loadSkin("/static/default.png", "default")
 	]);
 	if (data.type == "Cape") {
 		await Promise.all([
