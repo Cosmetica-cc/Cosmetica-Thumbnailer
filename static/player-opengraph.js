@@ -51,7 +51,7 @@ async function doRender() {
 	screenshotter.camera.position.y = 12.0;
 	screenshotter.camera.position.z = 42.0;
 	await Promise.all([
-		screenshotter.loadSkin((data.skin != "" ? data.skin : "default.png"), data.slim ? "slim" : "default")
+		screenshotter.loadSkin((data.skin != "" ? data.skin : "/static/default.png"), data.slim ? "slim" : "default")
 	]);
 	await Promise.all([
 		screenshotter.loadPanorama("https://cosmetica.cc/page/panoramas/get?trash&id=" + data.panorama)

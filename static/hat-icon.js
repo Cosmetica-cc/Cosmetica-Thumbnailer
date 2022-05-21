@@ -21,8 +21,6 @@ async function doRender() {
 	console.log(data);
 	var hatModel = false;
 	var hatTexture = false;
-	var shoulderBuddyModel = false;
-	var shoulderBuddyTexture = false;
 	var cape = false;
 	if (data.type == "Cape") {
 		cape = data.image
@@ -31,32 +29,25 @@ async function doRender() {
 		hatModel = JSON.parse(data.model);
 		hatTexture = data.texture;
 	}
-	if (data.type == "Shoulder Buddy") {
-		shoulderBuddyModel = JSON.parse(data.model);
-		shoulderBuddyTexture = data.texture;
-	}
 	var options = {
 		canvas: document.getElementById("canvas"),
-		renderPaused: true,
 		width: 300,
 		height: 300,
-		hatModel: hatModel,
-		hatTexture: hatTexture,
-		shoulderBuddyModel: shoulderBuddyModel,
-		shoulderBuddyTexture: shoulderBuddyTexture,
+		shoulderBuddyModel: hatModel,
+		shoulderBuddyTexture: hatTexture,
 		fov: 40
 	};
 	var screenshotter;
 	var screenshotter2;
 	if (data.type == "Hat") {
-		options.fov = 35;
+		options.fov = 60;
 		screenshotter = initializeViewer(options, true);
 		screenshotter.camera.rotation.x = 0;
 		screenshotter.camera.rotation.y = 0.534;
 		screenshotter.camera.rotation.z = 0;
-		screenshotter.camera.position.x = 25;
-		screenshotter.camera.position.y = 20.0;
-		screenshotter.camera.position.z = 42.0;
+		screenshotter.camera.position.x = 22;
+		screenshotter.camera.position.y = 10;
+		screenshotter.camera.position.z = 28.0;
 	} else if (data.type == "Shoulder Buddy") {
 		options.fov = 45;
 		screenshotter = initializeViewer(options, true);
@@ -88,11 +79,16 @@ async function doRender() {
 		screenshotter.camera.position.y = -0.5;
 		screenshotter.camera.position.z = -42.0;
 	}
-	if (hatTexture) await Promise.all([
-		screenshotter.loadHat(hatTexture)
-	]);
 	if (shoulderBuddyTexture) await Promise.all([
 		screenshotter.loadShoulderBuddy(shoulderBuddyTexture)
+	]);
+	console.log("before hat");
+	if (hatTexture) await Promise.all([
+		screenshotter.loadShoulderBuddy(hatTexture)
+	]);
+	console.log("after hat");
+	await Promise.all([
+		screenshotter.loadSkin("/static/default.png", "default")
 	]);
 	if (data.type == "Cape") {
 		await Promise.all([
@@ -101,7 +97,7 @@ async function doRender() {
 		]);
 	}
 	console.log(screenshotter);
-	screenshotter.render();
+	//screenshotter.render();
 	
 	if (data.type == "Cape") screenshotter2.render();
 
