@@ -97,6 +97,7 @@ async function doRender() {
 
 	setTimeout(function() {
 		document.getElementById("hider").style.display = "block";
+		console.log("SHOWN!");
 	}, 500);
 }
 
