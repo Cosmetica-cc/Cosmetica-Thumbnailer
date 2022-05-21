@@ -172,7 +172,8 @@ async function screenshot(subject, id, imageType, fileType) {
 		type: properties.imageType,
 		scaleFactor: 1,
 		launchOptions: puppeteerArgs,
-		defaultBackground: false
+		defaultBackground: false,
+		timeout: 15
 	};
 	if (options.type == "jpeg") options.quality = properties.quality;
 	try {
