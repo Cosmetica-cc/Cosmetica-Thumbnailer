@@ -79,14 +79,9 @@ async function doRender() {
 		screenshotter.camera.position.y = -0.5;
 		screenshotter.camera.position.z = -42.0;
 	}
-	if (shoulderBuddyTexture) await Promise.all([
-		screenshotter.loadShoulderBuddy(shoulderBuddyTexture)
-	]);
-	console.log("before hat");
 	if (hatTexture) await Promise.all([
 		screenshotter.loadShoulderBuddy(hatTexture)
 	]);
-	console.log("after hat");
 	await Promise.all([
 		screenshotter.loadSkin("/static/default.png", "default")
 	]);
