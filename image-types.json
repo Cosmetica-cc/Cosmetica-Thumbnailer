@@ -55,5 +55,18 @@
 			"width": 300,
 			"height": 300
 		}
+	},
+	"backbling": {
+		"opengraph": {
+			"imageType": "jpeg",
+			"width": 1200,
+			"height": 630,
+			"quality": 0.8
+		},
+		"icon": {
+			"imageType": "png",
+			"width": 300,
+			"height": 300
+		}
 	}
 }
