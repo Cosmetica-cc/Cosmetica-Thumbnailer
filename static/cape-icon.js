@@ -6,6 +6,57 @@ function initializeViewer(options, transparent = false) {
 	return skinViewer;
 }
 
+async function doCapeAnimation(viewer, cape, speed, typeCallback = function() {return "cape"}) {
+	if (!cape) return false;
+	
+	var img = await generateImageFromSource(cape);
+	console.log("cape image loaded!");
+	var width = img.width;
+	var height = img.width / 2;
+	var frameCount = img.height / height;
+
+	var frames = [];
+
+	var canvas = document.createElement("canvas");
+	canvas.width = width;
+	canvas.height = height;
+	var ctx = canvas.getContext("2d");
+
+	function getSpeed() {
+		if (typeof speed === "function") {
+			return speed();
+		}
+		return speed;
+	}
+
+	for (let i = 0; (i < frameCount && getSpeed()) || !i; i++) {
+		console.log("doing frame " + i);
+		ctx.drawImage(img, 0, height * i, width, height, 0, 0, width, height);
+		frames.push(canvas.toDataURL());
+	}
+
+	if (frames.length == 1) { // static cape
+		if (viewer) viewer.loadCape(frames[0], {backEquipment: typeCallback()});
+	} else { // animated cape
+		if (viewer) viewer.loadCape(frames[0], {backEquipment: typeCallback()});
+		i = 0;
+		function doLoop() {
+			i++;
+			if (i >= frameCount) i = 0;
+			if (!viewer || !viewer.canvas) {
+				console.log("stopping animation!");
+			} else {
+				viewer.loadCape(frames[i], {backEquipment: typeCallback()});
+				setTimeout(function() {
+					doLoop();
+				}, getSpeed());
+			}
+		}
+		doLoop();
+	}
+	return frames[0];
+}
+
 function getData(url) { 
 	return $.ajax({
 	  	url: url,
@@ -25,7 +76,6 @@ async function doRender() {
 			renderPaused: true,
 			width: 200,
 			height: 300,
-			cape: data.image,
 			fov: 40
 		};
 		var screenshotter = initializeViewer(options, true);
@@ -46,9 +96,10 @@ async function doRender() {
 		screenshotter.camera.position.x = 18;
 		screenshotter.camera.position.y = -0.5;
 		screenshotter.camera.position.z = -42.0;
+		var frame = await doCapeAnimation(false, cape, 0);
 		await Promise.all([
-			screenshotter.loadCape(cape, {backEquipment: "cape"}),
-			screenshotter2.loadCape(cape, {backEquipment: "elytra"})
+			screenshotter.loadCape(frame, {backEquipment: "cape"}),
+			screenshotter2.loadCape(frame, {backEquipment: "elytra"})
 		]);
 		screenshotter.render();
 		screenshotter2.render();

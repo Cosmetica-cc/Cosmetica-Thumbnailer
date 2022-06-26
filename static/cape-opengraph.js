@@ -6,6 +6,57 @@ function initializeViewer(options, transparent = false) {
 	return skinViewer;
 }
 
+async function doCapeAnimation(viewer, cape, speed, typeCallback = function() {return "cape"}) {
+	if (!cape) return false;
+	
+	var img = await generateImageFromSource(cape);
+	console.log("cape image loaded!");
+	var width = img.width;
+	var height = img.width / 2;
+	var frameCount = img.height / height;
+
+	var frames = [];
+
+	var canvas = document.createElement("canvas");
+	canvas.width = width;
+	canvas.height = height;
+	var ctx = canvas.getContext("2d");
+
+	function getSpeed() {
+		if (typeof speed === "function") {
+			return speed();
+		}
+		return speed;
+	}
+
+	for (let i = 0; (i < frameCount && getSpeed()) || !i; i++) {
+		console.log("doing frame " + i);
+		ctx.drawImage(img, 0, height * i, width, height, 0, 0, width, height);
+		frames.push(canvas.toDataURL());
+	}
+
+	if (frames.length == 1) { // static cape
+		if (viewer) viewer.loadCape(frames[0], {backEquipment: typeCallback()});
+	} else { // animated cape
+		if (viewer) viewer.loadCape(frames[0], {backEquipment: typeCallback()});
+		i = 0;
+		function doLoop() {
+			i++;
+			if (i >= frameCount) i = 0;
+			if (!viewer || !viewer.canvas) {
+				console.log("stopping animation!");
+			} else {
+				viewer.loadCape(frames[i], {backEquipment: typeCallback()});
+				setTimeout(function() {
+					doLoop();
+				}, getSpeed());
+			}
+		}
+		doLoop();
+	}
+	return frames[0];
+}
+
 function getData(url) { 
 	return $.ajax({
 	  	url: url,
@@ -106,9 +157,10 @@ async function doRender() {
 		screenshotter.loadShoulderBuddy(shoulderBuddyTexture),
 		screenshotter2.loadShoulderBuddy(shoulderBuddyTexture)
 	]);
+	var frame = await doCapeAnimation(false, cape, 0);
 	if (cape) await Promise.all([
-		screenshotter.loadCape(cape, {backEquipment: "elytra"}),
-		screenshotter2.loadCape(cape, {backEquipment: "cape"})
+		screenshotter.loadCape(frame, {backEquipment: "elytra"}),
+		screenshotter2.loadCape(frame, {backEquipment: "cape"})
 	]);
 	screenshotter.render();
 	screenshotter2.render();
