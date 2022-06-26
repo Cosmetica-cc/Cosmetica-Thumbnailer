@@ -6,6 +6,15 @@ function initializeViewer(options, transparent = false) {
 	return skinViewer;
 }
 
+function generateImageFromSource(src) {
+	return new Promise((resolve, reject) => {
+	  	let img = new Image();
+	  	img.onload = () => resolve(img);
+	  	img.onerror = reject;
+	  	img.src = src;
+	});
+}
+
 async function doCapeAnimation(viewer, cape, speed, typeCallback = function() {return "cape"}) {
 	if (!cape) return false;
 	
